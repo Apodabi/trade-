@@ -1,0 +1,38 @@
+{
+ "spot_XRPUSDT": {
+  "days": 233,
+  "first": "2026-02-10",
+  "last": "2026-09-30",
+  "seconds": 20131200,
+  "share_seconds_no_trade": 0.481,
+  "longest_no_trade_run_s": 54,
+  "on": "2026-08-16"
+ },
+ "spot_BTCUSDT": {
+  "days": 233,
+  "first": "2026-02-10",
+  "last": "2026-09-30",
+  "seconds": 20131200,
+  "share_seconds_no_trade": 0.1225,
+  "longest_no_trade_run_s": 13,
+  "on": "2026-04-25"
+ },
+ "perp_XRPUSDT": {
+  "days": 233,
+  "first": "2026-02-10",
+  "last": "2026-09-30",
+  "seconds": 20131200,
+  "share_seconds_no_trade": 0.16,
+  "longest_no_trade_run_s": 22,
+  "on": "2026-07-10"
+ },
+ "perp_BTCUSDT": {
+  "days": 233,
+  "first": "2026-02-10",
+  "last": "2026-09-30",
+  "seconds": 20131200,
+  "share_seconds_no_trade": 0.0502,
+  "longest_no_trade_run_s": 15,
+  "on": "2026-09-12"
+ }
+}

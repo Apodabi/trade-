@@ -17,6 +17,7 @@ UA = "research-readonly/1.0"
 class Client:
     def __init__(self, min_interval=0.35, max_retries=12, timeout=30):
         self.min_interval = min_interval
+        self.interval = min_interval  # adaptive (AIMD) pacing
         self.max_retries = max_retries
         self.timeout = timeout
         self._last = 0.0
@@ -26,9 +27,9 @@ class Client:
     def get(self, path, **params):
         params = {k: v for k, v in params.items() if v is not None and v != ""}
         url = BASE + path + ("?" + urllib.parse.urlencode(params) if params else "")
-        delay = 1.0
+        delay = 0.5
         for attempt in range(self.max_retries):
-            wait = self.min_interval - (time.time() - self._last)
+            wait = self.interval - (time.time() - self._last)
             if wait > 0:
                 time.sleep(wait)
             self._last = time.time()
@@ -36,10 +37,13 @@ class Client:
             try:
                 req = urllib.request.Request(url, headers={"User-Agent": UA, "Accept": "application/json"})
                 with urllib.request.urlopen(req, timeout=self.timeout) as r:
-                    return json.loads(r.read())
+                    out = json.loads(r.read())
+                self.interval = max(self.min_interval, self.interval * 0.9)
+                return out
             except urllib.error.HTTPError as e:
                 if e.code == 429 or e.code >= 500:
                     self.n_429 += e.code == 429
+                    self.interval = min(self.interval * 1.3, 2.0)
                     time.sleep(delay + random.random() * 0.5)
                     delay = min(delay * 1.7, 30)
                     continue

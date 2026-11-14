@@ -63,3 +63,32 @@ Verdict mapping:
 - gate evaluated and failed -> "no edge";
 - data cannot support the test (too few windows, or fills cannot be modelled
   credibly) -> "not enough data".
+
+---
+
+## Addendum, 2026-11-14 — written after train and validation were analysed
+
+The three configurations allowed above (T1, T2, M1) were evaluated on
+validation and all failed the gate. The holdout is still untouched.
+
+One further rule was examined on validation **after** those three were spent
+and is therefore post-hoc. It is frozen here so that it can be tested once,
+cleanly, on the holdout:
+
+**Q1 — quote-taking at minute boundaries**
+
+- Model and parameters: exactly `data/model_params.json` as committed with this
+  addendum (no lead-lag term, no refit).
+- Decision times: each minute boundary with 14 … 1 minutes left in the window.
+- Signal: model probability from index data through one second before the
+  boundary. Buy Yes at the displayed ask if `p - ask - fee(ask) >= 0.03`; sell
+  Yes at the displayed bid if `bid - p - fee(bid) >= 0.03`; the larger of the two.
+- Size: 10 contracts per decision, at most 100 contracts per window, and only
+  if the recorded order book shows at least 10 contracts at that quote one
+  second after the decision; otherwise no trade.
+- Fees: taker formula, rounded up per order.
+- Gate: unchanged (sample size, +1.0c with CI lower bound above zero,
+  drawdown <= $1,000, no day above 20% of profit).
+- Preconditions: at least 14 consecutive days of 1-second order-book
+  recordings from `recorder/record_book.py`; the evaluation window is the
+  recorded period inside the holdout. One evaluation, no re-tuning.

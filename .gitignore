@@ -8,3 +8,6 @@ data/binance/
 data/book/
 __pycache__/
 *.pyc
+logs/
+data/markets.csv
+data/global/

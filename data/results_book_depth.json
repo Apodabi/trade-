@@ -1,0 +1,12 @@
+{
+ "snapshots_two_sided": 3325,
+ "all": {
+  "share_best_bid_lt10": 0.11097744360902255,
+  "share_best_ask_lt10": 0.11428571428571428,
+  "spread_best_c_mean": 1.3089924812030076,
+  "slip_10lot_buy_c_mean": 0.06945996992481157,
+  "slip_10lot_sell_c_mean": 0.099913714285714,
+  "slip_100lot_buy_c_mean": 0.2252346436090227,
+  "slip_100lot_sell_c_mean": 0.23428390375939845
+ }
+}
