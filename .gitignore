@@ -1,0 +1,10 @@
+data/raw/
+data/*.parquet
+data/*.npz
+data/index/
+data/trades/
+data/candles/
+data/binance/
+data/book/
+__pycache__/
+*.pyc
